@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShinedeBox</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>ShinedeBox</h1>
+      <div id="auth">
+        <div id="auth-status">Vérification…</div>
+        <form id="login-form" class="hidden">
+          <input type="password" id="password" placeholder="Mot de passe" autocomplete="current-password" />
+          <button type="submit">Se connecter</button>
+        </form>
+        <button id="logout-btn" class="hidden">Se déconnecter</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="uploader" class="hidden card">
+        <h2>Uploader des fichiers</h2>
+        <form id="upload-form">
+          <input type="file" id="files" name="files[]" multiple />
+          <button type="submit">Envoyer</button>
+        </form>
+        <div id="progress" class="progress hidden">
+          <div id="progress-bar" class="progress-bar"></div>
+          <span id="progress-text"></span>
+        </div>
+        <div id="upload-errors" class="errors"></div>
+      </section>
+
+      <section class="card">
+        <h2>Fichiers</h2>
+        <div id="files-actions" class="hidden hint">Cliquez sur la corbeille pour supprimer.</div>
+        <ul id="file-list" class="files"></ul>
+        <div id="list-errors" class="errors"></div>
+      </section>
+    </main>
+
+    <footer>
+      <small>© ShinedeBox</small>
+    </footer>
+
+    <script src="/script.js"></script>
+  </body>
+  </html>
+
