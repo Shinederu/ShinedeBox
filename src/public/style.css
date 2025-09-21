@@ -16,9 +16,9 @@ button { padding: 6px 10px; cursor:pointer; }
 .file-meta { display:flex; flex-direction:column; gap:2px; }
 .file-actions { display:flex; gap:8px; align-items:center; }
 .file-actions a { text-decoration:none; }
+.rename { background: none; border: none; color: #0b74de; font-size: 1.1rem; }
 .trash { background: none; border: none; color: #b00020; font-size: 1.1rem; }
 .progress { position: relative; height: 14px; background: #ccc5; border-radius: 7px; overflow: hidden; margin-top:8px; }
 .progress-bar { position:absolute; left:0; top:0; bottom:0; width:0%; background: #0b74de; transition: width .1s linear; }
 .progress span { position:absolute; left:50%; transform:translateX(-50%); font-size:.8rem; line-height:14px; color: #fff; text-shadow: 0 1px 1px #0008; }
 footer { text-align:center; padding: 16px; color:#666; }
-

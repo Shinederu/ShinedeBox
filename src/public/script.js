@@ -154,6 +154,34 @@ async function refreshList() {
 
       const acts = document.createElement('div');
       acts.className = 'file-actions';
+      const ren = document.createElement('button');
+      ren.className = 'rename';
+      ren.title = 'Renommer';
+      ren.textContent = '✏️';
+      ren.addEventListener('click', async () => {
+        // Suggest base name without extension
+        const dot = f.name.lastIndexOf('.');
+        const ext = dot > 0 ? f.name.slice(dot) : '';
+        const base = dot > 0 ? f.name.slice(0, dot) : f.name;
+        const input = prompt(`Nouveau nom (sans extension ${ext || ''})`, base);
+        if (input == null) return;
+        let newBase = input.trim();
+        if (!newBase) return;
+        // If user included the same extension, strip it
+        if (ext && newBase.toLowerCase().endsWith(ext.toLowerCase())) {
+          newBase = newBase.slice(0, -ext.length);
+        }
+        try {
+          await apiFetch('/rename.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ id: f.id, name: newBase }).toString(),
+          });
+          await refreshList();
+        } catch (e) {
+          alert('Renommage échoué: ' + e.message);
+        }
+      });
       const del = document.createElement('button');
       del.className = 'trash';
       del.title = 'Supprimer';
@@ -171,6 +199,7 @@ async function refreshList() {
           alert('Suppression échouée: ' + e.message);
         }
       });
+      acts.appendChild(ren);
       acts.appendChild(del);
       li.appendChild(acts);
       listEl.appendChild(li);
@@ -186,4 +215,3 @@ window.addEventListener('DOMContentLoaded', () => {
   qs('#upload-form').addEventListener('submit', doUpload);
   refreshStatus();
 });
-

@@ -85,13 +85,18 @@ API (JSON)
 - `POST /api/upload.php` (multipart: `files[]`) → `{ success, results: [ { name, stored?, url?, size?, mime?, success, error? } ] }`
 - `GET /api/list.php` → `{ success, files: [ { id, name, size, mtime, url } ] }`
 - `POST /api/delete.php` (x-www-form-urlencoded: `id=<stored_name>`) → `{ success }`
+ - `POST /api/rename.php` (x-www-form-urlencoded: `id=<stored_name>&name=<new_base_name>`) → `{ success, renamed: { old, new, url } }`
 
 Exemples d’erreurs JSON
 - `{ "success": false, "error": "Non authentifié" }`
 - `{ "success": false, "error": "Extension non autorisée" }`
 - `{ "success": false, "error": "Trop de requêtes, réessayez plus tard" }`
 
+Renommage
+- Le renommage ne change pas l'extension du fichier, uniquement le nom de base.
+- Si un fichier du même nom existe déjà, l’API renvoie une erreur 409.
+- La suppression accepte désormais les fichiers renommés (validation stricte du nom, extension autorisée).
+
 Remarques
 - Le front utilise XHR pour la barre de progression.
 - Le nom stocké suit `YYYYMMDD-HHMMSS-random8hex.ext` et les liens directs sont `BASE_URL/uploads/<filename>`.
-
